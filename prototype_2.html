@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>v-bind Conditionals</title>
+        <meta charset="UTF-8">
+        <!--Imports Vue.js Library-->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!--Styling for basic game layout-->
+        <style>
+            .main-container{
+                margin: 0 auto;
+                padding: 2em;
+                width:80%;
+                text-align: center;
+            }
+            .safe{
+                background:green;
+                border: 1px dotted black;
+                padding:30px;
+                display:block;
+                text-align:center;}
+            .danger{
+                background:red;
+                border: 1px dotted black;
+                padding:30px;
+                display:block; 
+                text-align:center
+            }
+
+        </style>
+    </head>
+    <body>
+    
+    <!--Follows similar structure to prototype_1.html-->
+    <div id="app">
+        <div v-bind:class="loadClass"><!--Binds a class through Vue app-->
+            <h1>{{Title}}</h1> <!--Renders title through Vue app-->
+            <img v-bind:src="imgSrc" v-bind:alt="newAlt"/> <!--Binds image source and img alt text through Vue app-->
+            <!--Binds class through Vue app based on its boolen condition-->
+            <!--Currently, boolean is set to be random for isSafe, and is automatically the opposite for the other p class-->
+            <!--This imitates a board generating random blocks with safe squares and bomb squares, with specific atrribuets being present depending on the block-->
+            <p v-bind:class="{safe:isSafe}">Safe Block!</p>
+            <p v-bind:class="{danger:!isSafe}">Bomb Block!</p>
+        </div>
+    </div>
+    
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data:{
+            Title: 'Minesweeper',
+            imgSrc: "images/minesweeper-example.png",
+            loadClass : 'main-container',
+            newAlt : 'Image of Minesweeper Board',
+            isSafe:Math.random() < 0.5 //Randomly toggles is the boolen "isSafe" will be true or false on page load
+        }
+    });
+    </script>
+    </body>
+</html>

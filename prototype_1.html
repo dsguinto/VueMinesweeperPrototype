@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Intro to v-bind</title>
+		<meta charset="UTF-8">
+        <!--Imports Vue.js Library-->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!--Styling for basic game layout-->
+		<style>
+			.main-container{
+                margin: 0 auto;
+                padding: 2em;
+                width:80%;
+                text-align: center;
+            }
+		</style>
+	</head>
+	<body>
+	<!--Follows similar structure to prototype_0.html-->
+	<div id="app">
+		<div v-bind:class="loadClass"><!--Binds a class through Vue app-->
+			<h1>{{Title}}</h1> <!--Renders title through Vue app-->
+            <img v-bind:src="'images/minesweeper-example.png'" v-bind:alt="newAlt"/> <!--Binds image source and img alt text through Vue app-->
+		</div>
+	</div>
+	
+	<script>
+	var app = new Vue({
+		//Bind Vue object to HTML element through query selector
+		el: '#app',
+		data:{
+            Title: 'Minesweeper',
+			loadClass : 'main-container',
+			newStyle : 'font-size:30px;',
+			newAlt : 'Image of Minesweeper Board',
+		}
+	});	
+	</script>
+	</body>
+</html>
