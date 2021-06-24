@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>v-bind Conditionals</title>
+        <meta charset="UTF-8">
+        <!--Imports Vue.js Library-->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!--Styling for basic game layout-->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+            *{
+                font-family: 'Rajdhani', sans-serif;;
+            }
+            .main-container{
+                margin: 0 auto;
+                padding: 2em;
+                width:80%;
+                text-align: center;
+            }
+            .safe, .danger, .neutral{
+				width:100px; 
+				height:100px;
+                color: white;
+                font-size: 1.5em;
+                border: 1px dotted black;
+                padding:30px;
+                display:block;
+                text-align:center;
+				margin: 0 auto;
+            }
+
+			.safe:hover, .danger:hover, .neutral:hover{
+				cursor: pointer;
+			}
+
+			.neutral {
+				background: grey;
+			}
+            .safe{
+                background:green;
+            }
+            .danger{
+                background:red;
+            }
+
+        </style>
+    </head>
+    <body>
+    
+    <!--Follows similar structure to prototype_2.html-->
+    <div id="app">
+        <div v-bind:class="loadClass"><!--Binds a class through Vue app-->
+            <h1>{{Title}}</h1> <!--Renders title through Vue app-->
+            <img v-bind:src="imgSrc" v-bind:alt="newAlt"/> <!--Binds image source and img alt text through Vue app-->
+        </div>
+		    <!--Binds class through Vue app based on its boolen condition-->
+            <!--Currently, boolean is set to be random for isSafe, and is automatically the opposite for the other p class-->
+            <!--This imitates a board generating random blocks with safe squares and bomb squares, with specific atrribuets being present depending on the block-->
+            <!--On Click event handler reveals to the user if the block is safe or not via a message-->
+        <div v-bind:class="{neutral: true}" v-on:click="checkSafe();">{{message}}</div>
+    </div>
+    
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data:{
+            Title: 'Minesweeper',
+            imgSrc: "images/minesweeper-example.png",
+            loadClass : 'main-container',
+            newAlt : 'Image of Minesweeper Board, as a placeholder',
+            isSafe: Math.random() < 0.5, //Randomly toggles is the boolen "isSafe" will be true or false on page load (50% chance)
+            boxHeight:100,
+			message  : 'Click to see if box is safe or not.',
+
+        },
+		methods:{
+			checkSafe : function(){
+				if(this.isSafe){
+					this.isSafe = true;
+					this.message = 'Safe!\nRefresh page to try again)';
+				}else{	
+					this.isSafe = false;
+					this.neutral = false;
+					this.message = 'Danger!\n(Refresh page to try again)';
+				}
+			}
+		}
+    });
+    </script>
+    </body>
+</html>

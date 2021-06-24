@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Vue Components</title>
+		<meta charset="UTF-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			.square{position:absolute; background:lightgrey; border:1px solid #000; display:inline-block;}
+		</style>
+	</head>
+	<body>
+	
+	<div id="app">
+		<block
+			v-for="block in blocks"
+			v-bind:x="block.x"
+			v-bind:y="block.y"
+			v-bind:key="block.id"
+			v-bind:height="block.height"
+			v-bind:width="block.width"
+			v-bind:status="block.status">
+		</block>
+	</div>
+	
+	<script>
+	Vue.component('block',{
+		props:['height', 'width', 'x', 'y', 'status'],	
+		template:
+		`<span 
+			v-bind:class="'square'" 
+			v-bind:style="{'height': height, 'width': width, 'left':x, 'top':y}"
+			v-on:click="prompt();">
+		</span>`,
+		methods:{
+			prompt:function(){
+				alert('This block is ' + this.status + '!');	
+			}	
+		}
+	
+	});
+	
+	var app = new Vue({
+		el: '#app',
+		
+		data:{
+			blocks:[
+				{id:1, height:"50px", width: "50px", x: 0, y:0, status: "safe" },
+				{id:2, height:"50px", width: "50px", x: "50px", y:0, status: "a bomb" },
+				{id:3, height:"50px", width: "50px", x: "100px", y:0, status: "safe"},
+				{id:4, height:"50px", width: "50px", x: "150px", y:0, status: "safe" },
+				{id:5, height:"50px", width: "50px", x: "200px", y:0, status: "a bomb" },
+				{id:6, height:"50px", width: "50px", x: 0, y:"50px", status: "safe" },
+				{id:7, height:"50px", width: "50px", x: "50px", y:"50px", status: "safe" },
+				{id:8, height:"50px", width: "50px", x: "100px", y:"50px", status: "safe" },
+				{id:9, height:"50px", width: "50px", x: "150px", y:"50px", status: "safe" },
+				{id:10, height:"50px", width: "50px", x: "200px", y:"50px", status: "safe" },
+				{id:11, height:"50px", width: "50px", x: 0, y:"100px", status: "safe" },
+				{id:12, height:"50px", width: "50px", x: "50px", y:"100px", status: "a bomb" },
+				{id:13, height:"50px", width: "50px", x: "100px", y:"100px", status: "safe"},
+				{id:14, height:"50px", width: "50px", x: "150px", y:"100px", status: "safe" },
+				{id:15, height:"50px", width: "50px", x: "200px", y:"100px", status: "a bomb" },
+				{id:16, height:"50px", width: "50px", x: 0, y:"150px", status: "safe" },
+				{id:17, height:"50px", width: "50px", x: "50px", y:"150px", status: "safe" },
+				{id:18, height:"50px", width: "50px", x: "100px", y:"150px", status: "a bomb" },
+				{id:19, height:"50px", width: "50px", x: "150px", y:"150px", status: "safe" },
+				{id:20, height:"50px", width: "50px", x: "200px", y:"150px", status: "safe" },
+				{id:21, height:"50px", width: "50px", x: 0, y:"200px", status: "safe" },
+				{id:22, height:"50px", width: "50px", x: "50px", y:"200px", status: "a bomb" },
+				{id:23, height:"50px", width: "50px", x: "100px", y:"200px", status: "a bomb"},
+				{id:24, height:"50px", width: "50px", x: "150px", y:"200px", status: "safe" },
+				{id:25, height:"50px", width: "50px", x: "200px", y:"200px", status: "safe" },
+			]
+		},
+		
+		
+	});
+	</script>
+	</body>
+</html>
