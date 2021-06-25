@@ -9,23 +9,20 @@
 		</style>
 	</head>
 	<body>
-	<p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
+	<p>Problem J2: Epidemiology <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
 	<div id="app">
 		<div class="formfield">
-			<label>Small Treats: <label> <input v-model="treat_qty_small">
+			<label>Infected Limit Limit (P) <label> <input v-model="ppl_limit_P">
 		</div>
 		<div class="formfield">
-			<label>Medium Treats: <label> <input v-model="treat_qty_medium">
+			<label>Number of people with disease on Day 0 (N) <label> <input v-model="disease_ppl_0_N">
 		</div>
 		<div class="formfield">
-			<label>Large Treats: <label> <input v-model="treat_qty_large">
+			<label>Number of people that become infected next day(R) <label> <input v-model="infected_ppl_R">
 		</div>
 		<div id="result">
-			<div><label>show diagnostics:</label><input type="checkbox" v-model="treat_diagnostics"></div>
-			<div v-if="treat_diagnostics">Treat Total: {{treat_total}}</div>
-			<div v-if="treat_diagnostics">Is_Happy: {{is_happy}}</div>
-			<span v-if="is_happy">{{dog_name}} is Happy!</span>
-			<span v-else>{{dog_name}} is sad..</span>
+			<div>Day which total # of people with disease is greater than P: {{totalDays}}</div>
+			<p><u style="color:red">Currently crashes if inputs breaks calculation logic. For proper use, input values in code directly.</u></p>
 		</div>
 	</div>
 	
@@ -33,40 +30,30 @@
 	var app = new Vue({
 		el: '#app',
 		data:{
-			treat_diagnostics:false,
-			dog_name:"Barley",
-			treat_qty_small:0,
-			treat_qty_medium:0,
-			treat_qty_large:0,
-			treat_value_small:1,
-			treat_value_medium:2,
-			treat_value_large:3
+			diagnostics:true,
+			ppl_limit_P:750,
+			disease_ppl_0_N:1,
+			infected_ppl_R:5
 		},
 		computed:{
-			treat_total:function(){
-				return (this.treat_qty_small * this.treat_value_small) + 
-				(this.treat_qty_medium * this.treat_value_medium) + 
-				(this.treat_qty_large * this.treat_value_large);	
-			},
-			is_happy:function(){
-				
-				return this.treat_total>=10;	
+			totalDays:function(){
+				var totalInfected = this.disease_ppl_0_N;
+				var totalDays = 0;
+
+				if (totalInfected == totalDays){
+					return 0;
+				}
+				else{
+					while (totalInfected <= this.ppl_limit_P){
+					totalDays = totalDays + 1;
+					totalInfected = totalInfected + ((this.infected_ppl_R ** totalDays) * this.disease_ppl_0_N);
+					}
+					return totalDays;
+				}
 			}
 		}
 	});
 	
 	</script>
-	<!--
-		v-model will allow you to quickly bind form elements to the data property.
-		Make sure to set a default value!
-		The Computed property can be used like data, except for values that are calculated from data properties.
-		In this example 'treat_total' is computed from data properties, and 'is_happy' is computed from 'treat_total'.
-		
-		ASYNCHRONOUS LEARNING EXERCISE : J1
-		- Find any J1 problem
-		- Imagine an interface that allows the user to enter data on the webpage
-		- Build using v-model and computed properties!
-	
-	-->
 	</body>
 </html>

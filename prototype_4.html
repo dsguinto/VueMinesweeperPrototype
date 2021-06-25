@@ -10,30 +10,19 @@
 		</style>
 	</head>
 	<body>
-	
+
+	<!--Unable to figure this out. Read of VUE doc that v-if with v-for is not best practice?-->
 	<div id="app">
-		<ul v-if="scene.character === 'MACBETH'">
+		<ul>
 			<li v-for="part in scene" :key="part.character">
-				<div style="color: red">
-					<span>{{part.character}}</span>
+				<div v-if="scene.character = 'MACBETH'" >
+					<span style="color:red">{{part.character}}</span>
 					<p>{{part.dialogue}}</p>
 				</div>
-				<!-- <div v-else-if="character === LADY MACBETH">
-					<span>{{part.character}}</span>
-					<p>{{part.dialogue}}</p>
-				</div> -->
-			</li>
-		</ul>
-		<ul v-else>
-			<li v-for="part in scene" :key="part.character">
-				<div style="color: blue">
-					<span>{{part.character}}</span>
+				<div v-else-if="scene.character = 'LADY MACBETH'">
+					<span style="color:blue">{{part.character}}</span>
 					<p>{{part.dialogue}}</p>
 				</div>
-				<!-- <div v-else-if="character === LADY MACBETH">
-					<span>{{part.character}}</span>
-					<p>{{part.dialogue}}</p>
-				</div> -->
 			</li>
 		</ul>
 	</div>
@@ -60,13 +49,5 @@
 		
 	});
 	</script>
-	
-		<!--		
-		ASYNCHRONOUS LEARNING EXERCISE
-		1. Add the next line through the console using app.scene.push() in the console
-		2. Use v-if to style the text. Red if Macbeth is speaking, blue if Lady Macbeth
-		3. The lines are separated by \n. Can you re-structure the data and logic so that the dialogue has many lines, each line separate?
-		
-		-->
 	</body>
 </html>
