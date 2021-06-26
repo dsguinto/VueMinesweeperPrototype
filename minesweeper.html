@@ -35,6 +35,10 @@
                 width: 250px;
                 height: 250px;
             }
+            .status-image{
+                width: 100px;
+
+            }
             img{
                 width: 100%;
             }
@@ -57,30 +61,28 @@
                     >
                 </block>
             </div>
+            <p>{{message}}</p>
+            <img v-bind:src="imgSrc" v-bind:class="loadImage" />
         </div>
 	</div>
 	
 	<script>
 	Vue.component('block',{
-		props:['height', 'width', 'x', 'y', 'status', 'imgSrc'],	
+		props:['height', 'width', 'x', 'y', 'status'],	
 		template:
-		`<img 
-            v-bind:src="{imgSrc}"
+		`<img
 			v-bind:class="'square'" 
 			v-bind:style="{'height': height, 'width': width, 'left':x, 'top':y}"
 			v-on:click="checkSafe();">
 		</img>`,
-        data:{
-			message  : 'Check...',
-            imgSrc : 'images/check.png',
-        },
 		methods:{
 			checkSafe : function(){
 				if(this.status == "safe"){
-					this.imgSrc == "images/check.png"
+					app.imgSrc = "images/check.png"
+                    app.message = "Keep going!"
 				}else{	
-					this.imgSrc == "images/bomb.png"
-                    alert("You Lose!");
+					app.imgSrc = "images/bomb.jpeg"
+                    app.message = "KA BOOM! (Try Again)"
 				}	
 			}	
 		}
@@ -89,14 +91,14 @@
 	
 	var app = new Vue({
 		el: '#app',
-		
 		data:{
             Title: 'Minesweeper',
 			loadClass : 'main-container',
             loadBoard: 'main-board',
+            loadImage: 'status-image',
 			newStyle : 'font-size:30px;',
-			newAlt : 'Image of Minesweeper Board',
-            imgSrc : 'images/check.png',
+            message : 'Try to click all the blocks with checkmarks while avoiding the bombs!',
+            imgSrc : '',
 			blocks:[
 				{id:1, height:"50px", width: "50px", x: 0, y:0, status: "safe" },
 				{id:2, height:"50px", width: "50px", x: "50px", y:0, status: "a bomb" },
@@ -124,12 +126,15 @@
 				{id:24, height:"50px", width: "50px", x: "150px", y:"200px", status: "safe" },
 				{id:25, height:"50px", width: "50px", x: "200px", y:"200px", status: "safe" },
 			]
-		},
-        methods:{
 		}
 		
-		
 	});
+    //THINGS TO IMPROVE
+    // 1) Randomizing status of blocks
+    // 2) Having images appear on blocks clicked as opposed to at the bottom
+    // 3) Logic for checking number of bombs around square clicked (as well as visually showing it)
+    // 4) Preventing game to continue if bomb is clicked (Required a reset/refresh)
+    // 5) Visuals (timer, styling, etc.)
 	</script>
 	</body>
 </html>
